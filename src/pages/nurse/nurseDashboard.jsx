@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {Home,Calendar,Pill,UserPlus} from "lucide-react";
+import {Home,UserPlus,Eye,Pencil,Trash} from "lucide-react";
 import "./nurseDashboard.css"
 
 
@@ -13,7 +13,7 @@ function DashboardPage(){
             age:78,
             room:101,
             condition:"stable",
-            image: "/public/1.jpg"
+            image: "/1.jpg"
         },
         {
               id:2,
@@ -21,14 +21,14 @@ function DashboardPage(){
             age:82,
             room:102,
             condition:"needs monitoring" ,
-        image: "/public/2.webp"       },
+        image: "/2.webp"       },
          {
               id:3,
           name: "Elizabeth Brown",
       age: 75,
       room: "103",
       condition: "Good" ,
-    image: "/public/3.jpg"
+    image: "/3.jpg"
     },
   ];
 
@@ -61,10 +61,10 @@ function DashboardPage(){
             </div>
         </nav>
 
-        <div className="dashboard-container">
+        <main className="dashboard-container">
             <div className="dashboard-top">
                 <div>
-                    <h1> Residents</h1>
+                    <h1> Residents Dashboard</h1>
                     <p> Manage residents and their daily care information</p>
 
                 </div>
@@ -93,9 +93,11 @@ function DashboardPage(){
                                 <span>Age</span>
                                 <span>{patient.age}</span>
                                 </div>
-                                <div className="condition-label"> Condition </div>
 
-                            <span className={badgeClass(patient.condition)}>{patient.condition}</span>
+                                <p className="condition-label">Condition</p>
+
+                            <span className={badgeClass(patient.condition)}>{patient.condition}
+                            </span>
 
 
                             <div className="patient-actions">
@@ -104,17 +106,17 @@ function DashboardPage(){
                                 </Link>
 
                                 <button className="icon-btn">
-                                    <Calendar size={18}/>
+                                    <Pencil size={18}/>
                                 </button>
 
                                 <button className="icon-btn">
-                                    <Pill size={18} />
+                                    <Trash size={18} />
                                 </button>
                             </div>
                         </div>
                 ))}
             </div>
-        </div>
+        </main>
     </div>
   );
 }

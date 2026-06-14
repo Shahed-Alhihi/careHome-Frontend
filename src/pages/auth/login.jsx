@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
+import "./login.css"
 
 
 function Login() {
@@ -46,22 +47,22 @@ function Login() {
         </div>
 
         <form className="login-card" onSubmit={handleLogin}>
-            <div className="mb-4">
-                <label className="form-label"> Username</label>
+            <div >
+                <label> Username</label>
                 <input
                 type="text"
-                className="login-input w-100"
+                className="login-input"
                 placeholder="Enter your username"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 />
                 </div>
 
-                <div className="mb-4">
-                    <label className="form-label"> Password </label>
+                <div>
+                    <label> Password </label>
                     <input
                     type="password"
-                    className="login-input w-100"
+                    className="login-input"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
