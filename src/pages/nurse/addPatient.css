@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+.modal-background {
+  @apply fixed inset-0 flex items-center justify-center z-[999] p-5;
+  background-color: rgba(31, 42, 68, 0.45);
+}
+
+.add-patient-modal {
+  @apply w-full max-w-[520px] bg-white rounded-[26px] p-8;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.add-patient-modal h2 {
+  @apply text-[28px] font-bold text-[#1f2a44] mb-6;
+}
+
+.add-patient-modal label {
+  @apply font-semibold text-[#1f2a44] block mb-2;
+}
+
+.add-patient-modal input {
+  @apply w-full h-12 rounded-[14px] px-4 border border-[#dde3ed] outline-none text-sm transition-all mb-4;
+}
+
+.add-patient-modal input:focus {
+  @apply border-[#78aece];
+  box-shadow: 0 0 0 3px rgba(120, 174, 206, 0.2);
+}
+
+.modal-buttons {
+  @apply flex justify-end gap-3 mt-2;
+}
+
+.cancel-btn {
+  @apply bg-[#eef1f5] text-[#4e586d] rounded-[14px] px-6 py-2 font-semibold border-none cursor-pointer transition-colors;
+}
+
+.cancel-btn:hover {
+  @apply bg-[#e0e5ec];
+}
+
+.save-btn {
+  @apply bg-[#73a8cf] text-white rounded-[14px] px-6 py-2 font-semibold border-none cursor-pointer transition-colors;
+}
+
+.save-btn:hover {
+  @apply bg-[#639bc4];
+}

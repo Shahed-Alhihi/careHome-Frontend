@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import {Home,UserPlus,Eye,Pencil,Trash} from "lucide-react";
 import "./nurseDashboard.css"
+import AddPatient from "./addPatient";
+import { useState } from "react";
 
 
 
 function DashboardPage(){
     //mock
-    const patients=[
+    const [patients,setPatients]= useState([
         {
             id:1,
             name:"Margaret Thompson",
@@ -30,7 +32,14 @@ function DashboardPage(){
       condition: "Good" ,
     image: "/3.jpg"
     },
-  ];
+  ]);
+
+  const [showForm,setShowForm]=useState(false);
+
+  function handleAddPatient(newPatient) {
+    setPatients([...patients,newPatient]);
+    
+  }
 
 
   const badgeClass=(condition) =>{
@@ -69,7 +78,7 @@ function DashboardPage(){
 
                 </div>
 
-                <button className="add-patient-btn">
+                <button className="add-patient-btn" onClick={() =>setShowForm(true)}>
                     <UserPlus size={20} />
                     Add Patient
                 </button>
@@ -117,6 +126,10 @@ function DashboardPage(){
                 ))}
             </div>
         </main>
+        {showForm && (<AddPatient
+            onClose={()=>setShowForm(false)}
+            onAddPatient={handleAddPatient}/>
+        )}
     </div>
   );
 }
