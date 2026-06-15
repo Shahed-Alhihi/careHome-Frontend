@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {Home,UserPlus,Eye,Pencil,Trash} from "lucide-react";
+import {Home,UserPlus} from "lucide-react";
 import "./nurseDashboard.css"
 import AddPatient from "./addPatient";
 import { useState } from "react";
@@ -114,13 +114,6 @@ function DashboardPage(){
                                 View Details
                                 </Link>
 
-                                <button className="icon-btn">
-                                    <Pencil size={18}/>
-                                </button>
-
-                                <button className="icon-btn">
-                                    <Trash size={18} />
-                                </button>
                             </div>
                         </div>
                 ))}

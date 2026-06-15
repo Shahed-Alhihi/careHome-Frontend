@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+.schedule-page {
+  @apply min-h-screen bg-[#f6fafc];
+}
+
+.schedule-container {
+  @apply w-[90%] mx-auto my-10;
+}
+
+.schedule-container h1 {
+  @apply text-3xl md:text-[42px] font-bold text-[#1f2a44] m-0;
+}
+
+.schedule-container > p {
+  @apply text-lg text-[#6e7891] mt-2 mb-8;
+}
+
+.schedule-section {
+  @apply bg-white rounded-[26px] p-6 mb-6 border border-[#e6ebf2];
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.schedule-section h2 {
+  @apply text-2xl font-bold text-[#5f9fc7] mb-5;
+}
+
+.schedule-card {
+  @apply bg-[#f6fafc] rounded-[18px] p-4 mb-3 flex items-start gap-4 border border-[#e6ebf2] text-[#73a8cf];
+}
+
+.schedule-card h3 {
+  @apply text-xl font-bold text-[#1f2a44] mb-1;
+}
+
+.schedule-card p {
+  @apply text-[#5f6b84] mb-1;
+}
+
+.schedule-card span {
+  @apply text-sm font-semibold text-[#5f9fc7];
+}
