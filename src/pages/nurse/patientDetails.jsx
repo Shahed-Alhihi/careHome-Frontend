@@ -1,6 +1,8 @@
 import {Link,useParams} from "react-router-dom";
 import {Home,ArrowLeft, Pill, Calendar, FileText } from "lucide-react";
 import "./patientDetails.css";
+import { useState,useEffect } from "react";
+import MedicineForm from "./medicineForm";
 
 
 function PatientDetails() {
@@ -41,7 +43,14 @@ function PatientDetails() {
 
 
 
-  const medicines=[
+  const [medicines,setMedicines]= useState(() =>{
+    const saveMed=localStorage.getItem(`medicines-${id}`);
+
+    if(saveMed){
+        return JSON.parse(saveMed);
+    }
+    return[
+  
     {
         id:1,
         name:"Aspirin",
@@ -54,8 +63,39 @@ function PatientDetails() {
         dosage:"one tablet",
         time:"11:00 AM"
     },
-  ];
+];
+});
 
+useEffect(()=>{
+    localStorage.setItem(`medicines-${id}`,JSON.stringify(medicines));
+},[medicines])
+
+  const [showAddForm,setShowAddForm]=useState(false);
+  const [editMed, setEditMed]=useState(null);
+
+  function addNewMedicine(newMedicine){
+    setMedicines([...medicines,newMedicine]);
+  }
+
+  function deleteMedicine(id){
+    setMedicines(
+        medicines.filter((medicine)=> medicine.id !==id)
+    );
+  }
+
+  function updateMedicine(updatedMed){
+    setMedicines(
+        medicines.map((medicine) =>{
+            if(medicine.id===updatedMed.id){
+                return updatedMed;
+            }
+            else{
+                return medicine
+            }
+        }
+    )
+    );
+  }
 
   const updates=[
     {
@@ -100,6 +140,8 @@ function PatientDetails() {
         
     
   };
+
+
 
   return(
      <div className="details-page">
@@ -175,9 +217,18 @@ function PatientDetails() {
 
 
             <div className="details-section full-section">
-                <h2>
-                    <Pill size={22} /> Medicines
-                </h2>
+                <div className="section-header">
+                    <h2>
+                        <Pill size={22} />Medicines
+                    </h2>
+
+                    <button className="small-add-btn" onClick={()=>{
+                        setEditMed(null);
+                        setShowAddForm(true);
+                    }}>
+                        Add Medicine 
+                    </button>
+                </div>
 
                 {medicines.map((medicine)=> (
                     <div className="medicine-row" key={medicine.id}>
@@ -186,10 +237,33 @@ function PatientDetails() {
                             <p>{medicine.dosage}</p>
                         </div>
 
-                        <span> {medicine.time}</span>
+                        <div className="medicine-actions"> 
+                            <span> {medicine.time}</span>
+
+                            <button
+                            className="edit-btn"
+                            onClick={()=>{
+                                setEditMed(medicine);
+                                setShowAddForm(true);
+                            }}>
+                                Edit Medicine
+                            </button>
+
+                            <button className="delete-btn" onClick={()=>deleteMedicine(medicine.id)}>
+                                Delete
+                            </button>
+
+                        </div>
                         </div>
                 ))}
             </div>
+
+            {showAddForm && (<MedicineForm
+                onClose={()=>setShowAddForm(false)}
+                onAddMed={addNewMedicine}
+                onUpdateMed={updateMedicine}
+                editMed={editMed} />
+            )}
 
 
             <div className="details-section full-section">
