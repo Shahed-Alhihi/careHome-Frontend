@@ -3,6 +3,7 @@ import {Home,ArrowLeft, Pill, Calendar, FileText } from "lucide-react";
 import "./patientDetails.css";
 import { useState,useEffect } from "react";
 import MedicineForm from "./medicineForm";
+import PatientsUpdateForm from "./patientsUpdatesForm";
 
 
 function PatientDetails() {
@@ -68,7 +69,7 @@ function PatientDetails() {
 
 useEffect(()=>{
     localStorage.setItem(`medicines-${id}`,JSON.stringify(medicines));
-},[medicines])
+},[medicines,id])
 
   const [showAddForm,setShowAddForm]=useState(false);
   const [editMed, setEditMed]=useState(null);
@@ -97,7 +98,13 @@ useEffect(()=>{
     );
   }
 
-  const updates=[
+  const [updates,setUpdates]= useState(() =>{
+        const saveUpdate=localStorage.getItem(`updates-${id}`);
+
+         if(saveUpdate){
+        return JSON.parse(saveUpdate);
+    }
+    return[
     {
          id:1,
         date:"2026-06-13",
@@ -109,10 +116,21 @@ useEffect(()=>{
          id:2,
         date:"2026-06-14",
         nurse:"Nurse Sara",
-        notes:"Blood preasure and SPO2 were checked and recorded"
-    },
-  ];
+        notes:"Blood preasure and SPO2 were checked and recorded",
+       } ,
+    ];
+}
+);
+useEffect(()=>{
+    localStorage.setItem(`updates-${id}`,JSON.stringify(updates));
+},[updates, id])
 
+const [showUpdate,setUpdate]=useState(false);
+
+
+function addUpdate(newUpdate){
+    setUpdates([...updates,newUpdate]);
+}
 
   const events=[
     {
@@ -267,18 +285,31 @@ useEffect(()=>{
 
 
             <div className="details-section full-section">
+                <div className="section-header">
                 <h2>
                     <FileText size={22} /> Daily Updates
                 </h2>
 
+                <button
+                className="small-add-btn"
+                onClick={()=>setUpdate(true)}>
+                    Add Update
+                </button>
+                </div>
+
                 {updates.map((update)=>(
                     <div className="update-card" key={update.id}>
-                        <h3>{update.date}</h3>
+                        <h3>{update.date} at {update.time}</h3>
                         <p>{update.notes}</p>
                         <span> {update.nurse}</span>
                         </div>
                 ))}
             </div>
+
+            {showUpdate && (<PatientsUpdateForm
+                onClose={()=> setUpdate(false)}
+                onAdd={addUpdate} />
+            )}
         </main>
         </div>
   );
