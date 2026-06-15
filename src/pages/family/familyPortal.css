@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+.family-portal-page {
+  @apply min-h-screen bg-[#f6fafc];
+}
+
+.family-navbar {
+  @apply bg-white px-10 py-5 flex justify-between items-center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.family-logo {
+  @apply flex items-center gap-4;
+}
+
+.family-logo-icon {
+  @apply w-14 h-14 rounded-full bg-[#9fc5d3] text-white flex items-center justify-center;
+}
+
+.family-logo h1 {
+  @apply text-3xl font-bold text-[#1f2a44] m-0;
+}
+
+.family-logo p {
+  @apply text-[#6e7891] m-0;
+}
+
+.family-logout {
+  @apply flex items-center gap-2 no-underline text-[#6e7891] font-bold text-lg;
+}
+
+.family-main {
+  @apply w-[90%] mx-auto my-10;
+}
+
+.family-profile-card {
+  @apply bg-[#edf6fb] rounded-[26px] p-8 flex items-center gap-6 mb-8 border border-[#dfe7ee];
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.family-avatar {
+  @apply w-24 h-24 rounded-full bg-[#9fc5d3] text-white flex items-center justify-center text-4xl font-bold;
+}
+
+.family-profile-card h1 {
+  @apply text-4xl font-bold text-[#1f2a44] m-0;
+}
+
+.family-profile-card p {
+  @apply text-xl text-[#6e7891] my-3;
+}
+
+.family-profile-card span {
+  @apply inline-block bg-white text-[#73a5cb] px-6 py-3 rounded-full font-bold;
+}
+
+.family-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 mb-8;
+}
+
+.family-section {
+  @apply bg-white rounded-[26px] border border-[#dfe7ee] overflow-hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.family-section.full {
+  @apply mb-8;
+}
+
+.family-section-title {
+  @apply flex items-center gap-3 p-6 border-b border-[#dfe7ee] text-[#5f9fc7];
+}
+
+.family-section-title h2 {
+  @apply text-2xl font-bold text-[#1f2a44] m-0;
+}
+
+.purple-title {
+  @apply bg-[#f3eafd] text-[#913df0];
+}
+
+.info-box,
+.family-medicine-card {
+  @apply bg-[#eaf4f8] rounded-[22px] p-6 m-6;
+}
+
+.info-box p {
+  @apply text-[#6e7891] text-lg mb-2;
+}
+
+.info-box h3 {
+  @apply text-xl font-bold text-[#1f2a44] m-0;
+}
+
+.info-box span {
+  @apply text-[#6e7891];
+}
+
+.family-medicine-card h3 {
+  @apply text-xl font-bold text-[#1f2a44];
+}
+
+.family-medicine-card p {
+  @apply text-[#6e7891];
+}
+
+.family-medicine-card span {
+  @apply inline-block bg-[#dff4e8] text-[#7abf9c] px-3 py-1 rounded-full mr-2;
+}
+
+.family-medicine-card em {
+  @apply block text-[#6e7891] mt-3;
+}
+
+.family-event-card {
+  @apply bg-[#f8f1ff] rounded-[24px] p-6 m-6 flex justify-between items-start;
+}
+
+.family-event-card h3 {
+  @apply text-xl font-bold text-[#1f2a44];
+}
+
+.family-event-card p,
+.family-event-card span {
+  @apply text-[#6e7891];
+}
+
+.family-event-card strong {
+  @apply bg-[#eadcff] text-[#7b2fe0] px-4 py-2 rounded-full;
+}
+
+.family-update-card {
+  @apply bg-[#eaf4f8] border-l-4 border-[#73a8cf] rounded-r-[18px] p-5 m-6 flex justify-between gap-4;
+}
+
+.family-update-card h3 {
+  @apply text-lg font-bold text-[#1f2a44];
+}
+
+.family-update-card h3 span {
+  @apply text-[#6e7891] font-normal ml-2;
+}
+
+.family-update-card p {
+  @apply text-[#1f2a44];
+}
+
+.family-update-card strong {
+  @apply bg-[#dff0fb] text-[#73a8cf] px-4 py-2 rounded-full h-fit;
+}
+
+.readonly-message {
+  @apply bg-[#f0f8f3] border border-[#dfeee5] rounded-[24px] text-center text-[#6e7891] p-5 text-lg;
+}

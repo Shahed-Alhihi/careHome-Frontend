@@ -6,6 +6,7 @@ import DashboardPage from './pages/nurse/nurseDashboard'
 import PatientDetails from './pages/nurse/patientDetails'
 import Events from './pages/nurse/patientEvents'
 import MedSchedule from './pages/nurse/medSchedule'
+import FamilyPortal from './pages/family/familyPortal'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,8 @@ function App() {
     <Route path='/patient/:id' element={<PatientDetails />} />
     <Route path='/events' element={<Events />}/>
     <Route path='/medicine-schedule' element={<MedSchedule />}/>
+    <Route path='/family' element={<FamilyPortal />}/>
+
 
    </Routes>
    </BrowserRouter>
