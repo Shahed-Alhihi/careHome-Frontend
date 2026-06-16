@@ -133,7 +133,7 @@
 }
 
 .status-good {
-  @apply bg-[#edf6fb] text-[#73a5cb];
+  @apply bg-[#e8f8ec] text-[#2f9e44];
 }
 
 .status-critical {

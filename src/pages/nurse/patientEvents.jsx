@@ -3,49 +3,53 @@ import {Home,Calendar,Trash,Plus} from "lucide-react";
 import "./patientEvents.css"
 import { useState,useEffect} from "react";
 import EventsForm from "./eventsForm"
+import api from "../../service/api";
 
 
 
 function Events(){
-    const[events,setEvents]=useState(()=>{
-        const saveEvent=localStorage.getItem("events");
-
-        if(saveEvent){
-            return JSON.parse(saveEvent);
-        }
-
-        return [
-            {
-                id:1,
-                title:"Doctor visit",
-                date:"2026-05-12",
-                time:"10:00 AM",
-                desc:"Regular check up",
-            },
-            {
-                 id:2,
-                title:"Family visit",
-                date:"2026-06-9",
-                time:"11:00 AM",
-                desc:"Family visit",
-            },
-        ];
-    });
+    const[events,setEvents]=useState([]);
 
 
     const [showEvent,setShowEvent]=useState(false);
+      const [patients,setPatients]=useState([]);
+
 
     useEffect(()=>{
-        localStorage.setItem("events", JSON.stringify(events));
-    },[events]);
+       getEvents();
+       getPatients();
+    },[]);
 
-
-    function addPatientEvent(addedEvent){
-        setEvents([...events,addedEvent]);
+    async function getEvents() {
+        const response=await api.get("/events");
+        setEvents(response.data);
+        
     }
 
-    function deletePatientEvent(id){
-        setEvents(events.filter((event)=> event.id !== id));
+      async function getPatients() {
+        const response=await api.get("/patients");
+        setPatients(response.data);
+        
+    }
+
+
+    async function addPatientEvent(addedEvent){
+        await api.post("/events",{
+            patient_id:addedEvent.patient_id,
+            title:addedEvent.title,
+            event_description:addedEvent.desc,
+            event_date:addedEvent.date,
+            event_time:addedEvent.time,
+            event_status:addedEvent.status,
+        });
+
+        getEvents();
+        setShowEvent(false);
+    }
+
+    async function deletePatientEvent(id){
+        await api.delete(`/events/${id}`);
+        getEvents();
     }
 
 
@@ -93,9 +97,12 @@ function Events(){
 
                         <div className="event-content">
                             <h3>{event.title}</h3>
-                            <p>{event.desc}</p>
+                            <p>{event.event_description}</p>
                             <span>
-                                {event.date} - {event.time}
+                                {event.event_date} - {event.event_time}
+                            </span>
+                            <span className="event-status">
+                                {event.event_status}
                             </span>
                         </div>
 
@@ -114,7 +121,8 @@ function Events(){
         {showEvent && (
             <EventsForm
             onClose={()=>setShowEvent(false)}
-            onAdd={addPatientEvent} />
+            onAdd={addPatientEvent} 
+            patients={patients}/>
         )}
         </div>
     );

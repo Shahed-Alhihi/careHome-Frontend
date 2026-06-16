@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
 import "./login.css"
-
+import api from "../../service/api";
 
 function Login() {
     const [userName, setUserName]=useState("");
@@ -11,21 +11,31 @@ function Login() {
     const nav= useNavigate();
 
 
-    function handleLogin(e) {
+   async function handleLogin(e) {
         e.preventDefault();
 
+        try{
+            const response=await api.post("/auth/login",{
+                username:userName,
+                password:password,
+            });
 
-        if(userName==="nurse1" && password==="nurse123"){
+            const user=response.data;
+
+            localStorage.setItem("user",JSON.stringify(user));
+
+             if(user.user_role==="nurse"){
             nav("/nurse");
         }
-        else if(userName==="family1" && password==="family123"){
+        else if(user.user_role==="family"){
             nav("/family");
         }
-        else{
-            alert("invalid username or password, check them again!")
-        }
-        
     }
+    catch(error){
+            alert("invalid username or password, check them again!");
+        }
+        }
+
 
 
     return(
