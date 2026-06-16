@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+.details-page {
+  @apply min-h-screen bg-[#f6fafc];
+}
+
+.details-navbar {
+  @apply bg-white px-6 md:px-[42px] py-4 flex flex-wrap items-center justify-between gap-4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.details-container {
+  @apply w-[90%] mx-auto my-10;
+}
+
+.back-link {
+  @apply inline-flex items-center gap-2 no-underline text-[#5f9fc7] font-bold mb-7 transition-colors;
+}
+
+.back-link:hover {
+  @apply text-[#4a8ab5];
+}
+
+.patient-profile-card {
+  @apply bg-white rounded-[28px] p-7 flex flex-col md:flex-row items-center gap-6 mb-7;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.patient-profile-card img {
+  @apply w-[110px] h-[110px] rounded-full object-cover flex-shrink-0;
+}
+
+.patient-profile-card h1 {
+  @apply text-3xl md:text-[36px] text-[#1f2a44] m-0 font-bold;
+}
+
+.patient-profile-card p {
+  @apply text-lg md:text-[20px] text-[#6e7891] my-2;
+}
+
+
+.details-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+.details-section {
+  @apply bg-white rounded-[26px] p-6 md:p-7 mb-6;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.details-section h2 {
+  @apply text-xl md:text-[26px] text-[#1f2a44] font-bold mb-5 flex items-center gap-2;
+}
+
+.details-section p {
+  @apply text-base md:text-[18px] text-[#5f6b84] mb-2;
+}
+
+.full-section {
+  @apply mt-1;
+}
+
+.small-card,
+.update-card {
+  @apply bg-[#f6fafc] rounded-[18px] p-4 md:p-[18px] mb-3 border border-[#e6ebf2];
+}
+
+.small-card h3,
+.update-card h3 {
+  @apply text-lg md:text-[20px] text-[#1f2a44] mb-1 font-semibold;
+}
+
+.small-card p,
+.update-card p {
+  @apply m-0 text-[#5f6b84] text-sm md:text-base;
+}
+
+.update-card span {
+  @apply block mt-2 text-sm text-[#5f9fc7] font-semibold;
+}
+
+.medicine-row {
+  @apply bg-[#f6fafc] rounded-[18px] px-5 py-4 mb-3 border border-[#e6ebf2] flex justify-between items-center;
+}
+
+.medicine-row h3 {
+  @apply text-lg md:text-[21px] text-[#1f2a44] mb-1 font-semibold;
+}
+
+.medicine-row p {
+  @apply m-0 text-[#5f6b84] text-sm md:text-base;
+}
+
+.medicine-row span {
+  @apply bg-[#e8f2fb] text-[#5f9fc7] px-4 py-2 rounded-2xl font-bold text-sm flex-shrink-0;
+}
+
+.nav-logo {
+  @apply flex items-center gap-4;
+}
+
+.nav-logo-icon {
+  @apply w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#9fc5d3] text-white flex items-center justify-center;
+}
+
+.nav-logo h1 {
+  @apply text-xl md:text-2xl font-bold text-[#1f2a44] m-0;
+}
+
+.nav-logo p {
+  @apply text-sm text-[#6e7891] mt-1 m-0;
+}
+
+.nav-links {
+  @apply flex flex-wrap gap-2 md:gap-4 items-center;
+}
+
+.nav-links a {
+  @apply flex items-center gap-2 no-underline text-[#1f2a44] bg-white border border-[#dfe7ee] px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all;
+}
+
+.nav-links a:hover {
+  @apply border-[#78a9cb] text-[#78a9cb];
+}
+
+
+.status-badge {
+  @apply inline-block px-4 py-2 rounded-[20px] font-bold text-sm;
+}
+
+.status-stable {
+  @apply bg-[#edf6fb] text-[#73a5cb];
+}
+
+.status-good {
+  @apply bg-[#edf6fb] text-[#73a5cb];
+}
+
+.status-critical {
+  @apply bg-[#fff3e7] text-[#c98b34];
+}
+
+.add-patient-background {
+  @apply fixed inset-0 flex items-center justify-center z-[999] p-5;
+  background-color: rgba(31, 42, 68, 0.45);
+}
+
+.add-patient {
+  @apply w-full max-w-[520px] bg-white rounded-[26px] p-8;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.add-patient h2 {
+  @apply text-[28px] font-bold text-[#1f2a44] mb-6;
+}
+
+.add-patient label {
+  @apply block font-semibold text-[#1f2a44] mb-2;
+}
+
+.add-patient input {
+  @apply w-full h-12 rounded-[14px] px-4 border border-[#dde3ed] outline-none text-sm transition-all mb-4;
+}
+
+.add-patient input:focus {
+  @apply border-[#78aece];
+  box-shadow: 0 0 0 3px rgba(120, 174, 206, 0.2);
+}
+
+.buttons {
+  @apply flex justify-end gap-3 mt-2;
+}
+
+.cancel-btn {
+  @apply bg-[#eef1f5] text-[#4e586d] rounded-[14px] px-6 py-2 font-semibold border-none cursor-pointer transition-colors;
+}
+
+.cancel-btn:hover {
+  @apply bg-[#e0e5ec];
+}
+
+.save-btn {
+  @apply bg-[#73a8cf] text-white rounded-[14px] px-6 py-2 font-semibold border-none cursor-pointer transition-colors;
+}
+
+.save-btn:hover {
+  @apply bg-[#639bc4];
+}
+
+.section-header {
+  @apply flex items-center justify-between mb-5;
+}
+
+.small-add-btn {
+  @apply bg-[#73a8cf] text-white px-5 py-2 rounded-[14px] font-semibold cursor-pointer transition-colors;
+}
+
+.small-add-btn:hover {
+  @apply bg-[#639bc4];
+}
+
+.medicine-actions {
+  @apply flex items-center gap-3;
+}
+
+.edit-btn {
+  @apply bg-[#eef5f8] text-[#5f9fc7] px-4 py-2 rounded-[12px] font-semibold cursor-pointer transition-colors;
+}
+
+.edit-btn:hover {
+  @apply bg-[#dcecf5];
+}
+
+.delete-btn {
+  @apply bg-[#fdecec] text-[#c0392b] px-4 py-2 rounded-[12px] font-semibold cursor-pointer transition-colors;
+}
+
+.delete-btn:hover {
+  @apply bg-[#f8dada];
+}
+
