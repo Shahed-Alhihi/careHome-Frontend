@@ -4,6 +4,8 @@ import './familyPortal.css';
 import { useState,useEffect } from "react";
 import api from "../../service/api";
 
+
+//family portal is accociated with certain patient
 function FamilyPortal() {
      const[patient,setPatient]=useState(null);
     const[medicines,setMedicines]=useState([]);
