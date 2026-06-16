@@ -67,7 +67,7 @@ function MedSchedule(){
                                     <div>
                                         <h3>{medicine.medicine_name}</h3>
                                         <p>{medicine.dosage}</p>
-                                        <span>Patient ID: {medicine.patient_id}</span>
+                                        <span>{medicine.patient_name} ~ Patient ID: {medicine.patient_id}</span>
                                     </div>
                                     </div>
                             ))}

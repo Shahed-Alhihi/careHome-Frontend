@@ -82,7 +82,7 @@ function FamilyPortal() {
 
                             <div className="info-box">
                                 <p>Admission date</p>
-                                <h3>{patient.admission_date}</h3>
+                                <h3>{new Date(patient.admission_date).toLocaleDateString()}</h3>
                             </div>
 
                               <div className="info-box">
@@ -123,7 +123,7 @@ function FamilyPortal() {
                                 <div>
                                     <h3>{event.title}</h3>
                                     <p>{event.event_description}</p>
-                                    <span>{event.event_date} ~ {event.event_time}</span>
+                                    <span>{new Date(event.event_date).toLocaleDateString()} ~ {event.event_time}</span>
                                 </div>
 
                                 <strong> {event.event_status}</strong>
@@ -141,7 +141,7 @@ function FamilyPortal() {
                             <div className="family-update-card" key={update.id}>
                                 <div>
                                     <h3>
-                                        {update.update_date} 
+                                        {new Date(update.update_date).toLocaleDateString()} 
                                         <span> at {update.update_time}</span>
                                     </h3>
                                     <p>{update.notes}</p>

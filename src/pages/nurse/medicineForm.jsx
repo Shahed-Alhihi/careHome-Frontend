@@ -59,7 +59,7 @@ return(
 
                  <label> Medicine Time</label>
                 <input
-                type="text"
+                type="time"
                 placeholder="Enter time, e.g: 08:00 AM"
                 value={time}
                 onChange={(e)=> setTime(e.target.value)}

@@ -149,7 +149,7 @@ function PatientDetails() {
                     </p>
 
                     <p>
-                        Admission date: {patient.admission_date}
+                        Admission date: {new Date(patient.admission_date).toLocaleDateString()}
                     </p>
 
                     <p>
