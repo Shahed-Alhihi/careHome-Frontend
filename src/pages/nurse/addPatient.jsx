@@ -15,19 +15,15 @@ function AddPatient({onClose, onAddPatient}){
 
 
         const newPatient={
-            id: Date.now(),
-            name:name,
+            patient_name:name,
             age:age,
             room:room,
             condition:condition,
-            admissionDate:admissionDate,
-            emergencyContact:emergencyContact,
-            image:"",
+            admission_date:admissionDate,
+            emergency_contact:emergencyContact,
         };
 
-        onAddPatient(newPatient);
-        onClose();
-        
+        onAddPatient(newPatient);        
     }
 
 
@@ -47,7 +43,7 @@ function AddPatient({onClose, onAddPatient}){
                     <div className="modal-grid">
                         <div className="modal-field">
                             <label> Age </label>
-                            <input type="number" placeholder="Enter your age " value={age} onChange={(e) => setAge(e.target.value)} required />
+                            <input type="number" placeholder="Enter the patient's age " value={age} onChange={(e) => setAge(e.target.value)} required />
 
                         </div>
                         <div className="modal-field">

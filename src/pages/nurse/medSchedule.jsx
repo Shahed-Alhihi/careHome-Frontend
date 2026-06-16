@@ -1,47 +1,32 @@
 import { Link } from "react-router-dom";
 import { Home, Pill } from "lucide-react";
 import './medSchedule.css';
+import api from "../../service/api";
+import { useState,useEffect } from "react";
 
 
 
 function MedSchedule(){
-    const patientSchedule=[
-        {
-            time:"8:00 AM",
-            medicines:[
-                {
-                    patient: "Margaret Thomposon",
-                    name:"Aspirin",
-                    dosage:"100 mg"
-                },
-                 {
-                    patient: "Rober Wilson",
-                    name:"Blood pressure",
-                    dosage:"1 tablet"
-                }
-            ],
-        },
-        {
-           time:"6:00 AM",
-            medicines:[
-                {
-                    patient: "Margaret Thomposon",
-                    name:"Calcuim",
-                    dosage:"500 mg"
-                } ,
-            ],
-        },
-        {
-        time:"11:00 AM",
-            medicines:[
-                {
-                    patient: "Elizabeth Brown",
-                    name:"Vitamin D",
-                    dosage:"1 tablet"
-                } ,
-            ],
-        },
-    ];
+    const [medicines,setMedicines]=useState([]);
+
+    useEffect(()=>{
+        getMedicines();},[]);
+
+        async function getMedicines() {
+            const response= await api.get("/medicines");
+            setMedicines(response.data);
+            
+        }
+
+        const allMed={};
+        medicines.forEach((medicine)=>{
+            if (!allMed[medicine.medicine_time]) {
+                allMed[medicine.medicine_time]=[];
+                
+            }
+
+            allMed[medicine.medicine_time].push(medicine);
+        });
 
 
     return(
@@ -70,19 +55,19 @@ function MedSchedule(){
                     <h1> Medicine Dashboard</h1>
                     <p>Daily medicine schedule for the patient's</p>
 
-                    {patientSchedule.map((item) => (
-                        <div className="schedule-section" key={item.time}>
-                            <h2>{item.time}</h2>
+                    {Object.keys(allMed).map((time)=>(
+                        <div className="schedule-section" key={time}>
+                            <h2>{time}</h2>
 
 
-                            {item.medicines.map((medicine, index)=>(
-                                <div className="schedule-card" key={index}>
+                            {allMed[time].map((medicine)=>(
+                                <div className="schedule-card" key={medicine.id}>
                                     <Pill size={22} />
 
                                     <div>
-                                        <h3>{medicine.name}</h3>
+                                        <h3>{medicine.medicine_name}</h3>
                                         <p>{medicine.dosage}</p>
-                                        <span>{medicine.patient}</span>
+                                        <span>Patient ID: {medicine.patient_id}</span>
                                     </div>
                                     </div>
                             ))}

@@ -2,49 +2,39 @@ import { Link } from "react-router-dom";
 import {Home,UserPlus} from "lucide-react";
 import "./nurseDashboard.css"
 import AddPatient from "./addPatient";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../../service/api";
 
 
 
 function DashboardPage(){
-    //mock
-    const [patients,setPatients]= useState([
-        {
-            id:1,
-            name:"Margaret Thompson",
-            age:78,
-            room:101,
-            condition:"stable",
-            image: "/1.jpg"
-        },
-        {
-              id:2,
-            name:"Robert Wilson",
-            age:82,
-            room:102,
-            condition:"needs monitoring" ,
-        image: "/2.webp"       },
-         {
-              id:3,
-          name: "Elizabeth Brown",
-      age: 75,
-      room: "103",
-      condition: "Good" ,
-    image: "/3.jpg"
-    },
-  ]);
+    const [patients,setPatients]= useState([]);
 
   const [showForm,setShowForm]=useState(false);
 
-  function handleAddPatient(newPatient) {
-    setPatients([...patients,newPatient]);
+  useEffect(()=>{
+    getPatient();
+  },[]);
+
+  async function getPatient() {
+    const response=await api.get("/patients");
+    setPatients(response.data);
+    
+  }
+
+  async function handleAddPatient(newPatient) {
+    await api.post("/patients",newPatient);
+    await getPatient();
+    setShowForm(false);
     
   }
 
 
   const badgeClass=(condition) =>{
-    if(condition==="Good") return "status-badge status-good";
-    if (condition==="needs monitoring")  return "status-badge status-critical";
+    const value=condition ? condition.toLowerCase() : "";
+
+    if(value==="good") return "status-badge status-good";
+    if (value==="needs monitoring")  return "status-badge status-critical";
     return "status-badge status-stable";
         
     
@@ -90,10 +80,13 @@ function DashboardPage(){
 
 
                             <div className="patient-card-header">
-                                <img src={patient.image} alt={patient.name} className="patient-avatar" />
-
+                                <div className="patient-avatar">
+                                    {patient.patient_name.split(" ")
+                                    .map(word => word[0])
+                                    .join("")}
+                                    </div>
                             <div>
-                            <h3> {patient.name}</h3>
+                            <h3> {patient.patient_name}</h3>
                             <span className="room">Room {patient.room}</span>
                             </div>
                             </div>

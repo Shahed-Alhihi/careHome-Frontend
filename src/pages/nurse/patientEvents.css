@@ -95,3 +95,11 @@
 .save-btn {
   @apply bg-[#73a8cf] text-white rounded-[14px] px-6 py-2 font-semibold border-none cursor-pointer;
 }
+
+.event-status {
+  @apply inline-block mt-3 bg-[#edf6fb] text-[#73a8cf]
+  px-4 py-2 rounded-full font-bold text-sm;
+}
+.add-patient select {
+  @apply w-full h-12 rounded-[14px] px-4 border border-[#dde3ed] outline-none text-sm transition-all mb-4;
+}

@@ -4,162 +4,97 @@ import "./patientDetails.css";
 import { useState,useEffect } from "react";
 import MedicineForm from "./medicineForm";
 import PatientsUpdateForm from "./patientsUpdatesForm";
-
+import api from "../../service/api";
 
 function PatientDetails() {
     const {id}= useParams();
 
-      const patients=[
-         {
-            id:1,
-            name:"Margaret Thompson",
-            age:78,
-            room:101,
-            condition:"stable",
-            image: "/1.jpg",
-            admissionDate: "2025-01-10",
-            emergencyContact: "Sara Thompson- 079876543",
-        },
-        {
-              id:2,
-            name:"Robert Wilson",
-            age:82,
-            room:102,
-            condition:"needs monitoring" ,
-            image: "/2.webp",
-            admissionDate: "2025-02-10",
-            emergencyContact: "James wilson- 079878765",  
-         },
-         {
-              id:3,
-          name: "Elizabeth Brown",
-            age: 75,
-            room: "103",
-            condition: "Good" ,
-            image: "/3.jpg",
-             admissionDate: "2025-05-15",
-            emergencyContact: "Emma Brown- 079345678",
-    },
-  ];
+    const[patient,setPatient]=useState(null);
+    const[medicines,setMedicines]=useState([]);
+    const[updates,setUpdates]=useState([]);
+    const[events,setEvents]=useState([]);
 
 
-
-  const [medicines,setMedicines]= useState(() =>{
-    const saveMed=localStorage.getItem(`medicines-${id}`);
-
-    if(saveMed){
-        return JSON.parse(saveMed);
-    }
-    return[
-  
-    {
-        id:1,
-        name:"Aspirin",
-        dosage:"100mg",
-        time:"8:00 AM"
-    },
-    {
-         id:2,
-        name:"Vitamin D",
-        dosage:"one tablet",
-        time:"11:00 AM"
-    },
-];
-});
-
-useEffect(()=>{
-    localStorage.setItem(`medicines-${id}`,JSON.stringify(medicines));
-},[medicines,id])
-
-  const [showAddForm,setShowAddForm]=useState(false);
+    const [showAddForm,setShowAddForm]=useState(false);
   const [editMed, setEditMed]=useState(null);
+  const[showUpdate,setUpdate]=useState(false);
 
-  function addNewMedicine(newMedicine){
-    setMedicines([...medicines,newMedicine]);
-  }
 
-  function deleteMedicine(id){
-    setMedicines(
-        medicines.filter((medicine)=> medicine.id !==id)
-    );
-  }
+  useEffect(()=>{
+    getPatientDetails();}
+    ,[id]);
 
-  function updateMedicine(updatedMed){
-    setMedicines(
-        medicines.map((medicine) =>{
-            if(medicine.id===updatedMed.id){
-                return updatedMed;
-            }
-            else{
-                return medicine
-            }
-        }
-    )
-    );
-  }
+    async function getPatientDetails() {
+       const patientResult=await api.get(`/patients/${id}`);
+        const medicineResult=await api.get(`/medicines/${id}`);
+        const updateResult=await api.get(`/updates/${id}`);
+        const eventResult= await api.get(`/events/${id}`);
 
-  const [updates,setUpdates]= useState(() =>{
-        const saveUpdate=localStorage.getItem(`updates-${id}`);
 
-         if(saveUpdate){
-        return JSON.parse(saveUpdate);
+    setPatient(patientResult.data);
+    setMedicines(medicineResult.data);
+    setUpdates(updateResult.data);
+    setEvents(eventResult.data);
     }
-    return[
-    {
-         id:1,
-        date:"2026-06-13",
-        nurse:"Nurse Leyla",
-        notes:"patient condition is stable and had breakfast normally"
-    },
 
-      {
-         id:2,
-        date:"2026-06-14",
-        nurse:"Nurse Sara",
-        notes:"Blood preasure and SPO2 were checked and recorded",
-       } ,
-    ];
-}
-);
-useEffect(()=>{
-    localStorage.setItem(`updates-${id}`,JSON.stringify(updates));
-},[updates, id])
+    async function addNewMedicine(newMedicine) {
+        await api.post(`/medicines`,{
+            patient_id: id,
+            medicine_name:newMedicine.name,
+            dosage: newMedicine.dosage,
+            medicine_time: newMedicine.time,
+            notes:newMedicine.notes || "",
+        });
 
-const [showUpdate,setUpdate]=useState(false);
+        getPatientDetails();
+    }
 
 
-function addUpdate(newUpdate){
-    setUpdates([...updates,newUpdate]);
-}
+    async function deleteMedicine(medicineId) {
+        await api.delete(`/medicines/${medicineId}`);
+            getPatientDetails();
+        }
 
-  const events=[
-    {
-        id:1, 
-        title:"Doctor visit",
-        date:"2026-06-17",
-        time: "10:00 AM"
-    },
- {
-        id:2, 
-        title:"Family visit",
-        date:"2026-06-18",
-        time: "12:00 PM"
-    },
-
-  ];
+    async function updateMedicine(updatedMed) {
+        await api.put(`/medicines/${updatedMed.id}`,{
+            medicine_name:updatedMed.name,
+            dosage:updatedMed.dosage,
+            medicine_time:updatedMed.time,
+            notes:updatedMed.notes || "",
+        });
+            getPatientDetails();
+        }
 
 
-  const patient=patients.find((p)=> p.id===Number(id));
 
-  const badgeClass=(condition) =>{
-    if(condition==="Good") return "status-badge status-good";
-    if (condition==="needs monitoring")  return "status-badge status-critical";
+    async function addUpdate(newUpdate) {
+        const user=JSON.parse(localStorage.getItem("user"));
+
+        await api.post("/updates",{
+            patient_id:id,
+            nurse_id:user.nurse_id,
+            update_date:newUpdate.date,
+            update_time:newUpdate.time,
+            notes:newUpdate.notes,
+        });
+        getPatientDetails();
+    }
+
+
+      const badgeClass=(condition) =>{
+    const value=condition ? condition.toLowerCase() : "";
+
+    if(value==="good") return "status-badge status-good";
+    if (value==="needs monitoring")  return "status-badge status-critical";
     return "status-badge status-stable";
         
     
   };
 
 
+  if(!patient){
+    return <h2>Loading...</h2>
+  }
 
   return(
      <div className="details-page">
@@ -188,10 +123,14 @@ function addUpdate(newUpdate){
             </Link>
 
             <div className="patient-profile-card">
-                <img src={patient.image} alt={patient.name} />
+                  <div className="patient-avatar-large">
+                                    {patient.patient_name.split(" ")
+                                    .map(word => word[0])
+                                    .join("")}
+                                    </div>
 
                 <div>
-                    <h1>{patient.name}</h1>
+                    <h1>{patient.patient_name}</h1>
                     <p> Room {patient.room}</p>
                     <span className={badgeClass(patient.condition)}> {patient.condition} </span>
                 </div>
@@ -210,11 +149,11 @@ function addUpdate(newUpdate){
                     </p>
 
                     <p>
-                        Admission date: {patient.admissionDate}
+                        Admission date: {patient.admission_date}
                     </p>
 
                     <p>
-                        Emergency Contact Info: {patient.emergencyContact}
+                        Emergency Contact Info: {patient.emergency_contact}
                     </p>
                 </div>
 
@@ -227,7 +166,7 @@ function addUpdate(newUpdate){
                     {events.map((event) => (
                         <div className="small-card" key={event.id}>
                             <h3>{event.title}</h3>
-                            <p> {event.date} - {event.time} </p>
+                            <p> {event.event_date} - {event.event_time} </p>
                             </div>
                     ))}
                 </div>
@@ -251,17 +190,23 @@ function addUpdate(newUpdate){
                 {medicines.map((medicine)=> (
                     <div className="medicine-row" key={medicine.id}>
                         <div>
-                            <h3>{medicine.name}</h3>
+                            <h3>{medicine.medicine_name}</h3>
                             <p>{medicine.dosage}</p>
                         </div>
 
                         <div className="medicine-actions"> 
-                            <span> {medicine.time}</span>
+                            <span> {medicine.medicine_time}</span>
 
                             <button
                             className="edit-btn"
                             onClick={()=>{
-                                setEditMed(medicine);
+                                setEditMed({
+                                    id:medicine.id,
+                                    name:medicine.medicine_name,
+                                    dosage:medicine.dosage,
+                                    time:medicine.medicine_time,
+                                    notes:medicine.notes,
+                                });
                                 setShowAddForm(true);
                             }}>
                                 Edit Medicine
@@ -299,9 +244,9 @@ function addUpdate(newUpdate){
 
                 {updates.map((update)=>(
                     <div className="update-card" key={update.id}>
-                        <h3>{update.date} at {update.time}</h3>
+                        <h3>{update.update_date} at {update.update_time}</h3>
                         <p>{update.notes}</p>
-                        <span> {update.nurse}</span>
+                        <span> {update.nurse_name}</span>
                         </div>
                 ))}
             </div>

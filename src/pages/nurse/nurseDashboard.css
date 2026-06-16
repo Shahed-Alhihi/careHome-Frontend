@@ -73,9 +73,8 @@
 }
 
 .patient-avatar {
-  @apply w-[60px] h-[60px] md:w-[70px] md:h-[70px] rounded-full object-cover shrink-0 border-[3px] border-[#edf6fa] bg-[#edf6fa];
+  @apply w-[70px] h-[70px] md:w-[80px] md:h-[80px] rounded-full shrink-0 bg-[#edf6fa] text-[#5f9fc7] flex items-center justify-center font-bold text-xl md:text-2xl;
 }
-
 .patient-card-header h3 {
   @apply m-0 text-xl md:text-2xl leading-tight text-[#1f2933];
 }
@@ -96,9 +95,12 @@
   @apply block w-fit mx-auto px-[18px] py-[10px] rounded-[14px] text-sm md:text-base font-bold;
 }
 
-.status-stable,
-.status-good {
+.status-stable {
   @apply bg-[#edf6fb] text-[#73a5cb];
+}
+
+.status-good {
+  @apply bg-[#e8f8ec] text-[#2f9e44];
 }
 
 .status-critical {
